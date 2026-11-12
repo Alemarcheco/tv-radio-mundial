@@ -27,6 +27,8 @@ struct RaizView: View {
                 .tabItem { Label("TV", systemImage: "tv") }
             RadioInicioView()
                 .tabItem { Label("Radio", systemImage: "radio") }
+            CineInicioView()
+                .tabItem { Label("Cine", systemImage: "film") }
             FavoritosView()
                 .tabItem { Label("Favoritos", systemImage: "star.fill") }
         }

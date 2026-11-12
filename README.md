@@ -9,6 +9,7 @@ App nativa para iPhone (Swift + SwiftUI) para **ver canales de TV gratuitos de t
 | **Mapa** | Globo satelital. Modo 📻 Radio: acercas un país y aparecen puntos verdes (cada uno es una emisora en su ciudad); tocas uno y suena. Botón 🔀 para viajar a una radio al azar del mundo. Modo 📺 TV: tocas la bandera de un país y salen sus canales. |
 | **TV** | Canales de tu país, por país, por tema (noticias, deportes, películas, infantiles…), por idioma, o todos. Pantalla completa de Apple con AirPlay e imagen dentro de imagen. |
 | **Radio** | Buscador mundial, más escuchadas, por país, por género. Sigue sonando con la pantalla bloqueada, con controles en la pantalla de bloqueo y el nombre de la canción cuando la emisora lo manda. |
+| **Cine** | Películas y series gratis y legales: clásicos de dominio público de Internet Archive (se ven en la app), canales 24 h de películas/series, y accesos a apps oficiales gratis con anuncios (Pluto TV, Tubi, Plex, ViX, Canela). |
 | **Favoritos** | Estrella ☆ en cualquier canal o emisora. |
 
 ## De dónde salen los canales y emisoras (fuentes libres y legales)
