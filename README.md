@@ -33,3 +33,9 @@ un **.ipa sin firmar**. Sale en *Actions › artifact `MundoTVRadio-ipa`* y en *
 3. En el iPhone: *Ajustes › General › VPN y gestión de dispositivos* → confiar en tu Apple ID (el Modo de desarrollador ya lo tienes activado).
 
 Con Apple ID gratis dura **7 días**; luego se vuelve a instalar igual (los favoritos se conservan).
+
+## Versión Android
+
+La carpeta `android-app/` es la misma app hecha en Flutter (mapa con OpenStreetMap / satélite Esri, radio con controles en la notificación, TV y películas con reproductor de pantalla completa).
+GitHub Actions (`.github/workflows/android.yml`) compila el **APK** y lo publica en *Releases* con la etiqueta `android-v1.0.N`.
+Para instalarlo: descargar `TVyRadioMundial.apk` en el teléfono, abrirlo y permitir "instalar apps de fuentes desconocidas".

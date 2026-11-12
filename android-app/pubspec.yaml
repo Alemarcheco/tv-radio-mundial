@@ -1,0 +1,27 @@
+name: tv_radio_mundial
+description: "TV y Radio Mundial: TV, radio, películas y series gratis y legales de todo el mundo."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.6.0
+  flutter_map: ^8.3.2
+  latlong2: ^0.10.1
+  just_audio: ^0.10.6
+  just_audio_background: ^0.0.1-beta.17
+  video_player: ^2.14.1
+  chewie: ^1.17.4
+  geocoding: ^5.0.1
+  shared_preferences: ^2.5.6
+  url_launcher: ^6.3.3
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

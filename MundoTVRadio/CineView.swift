@@ -28,6 +28,7 @@ struct ColeccionCine: Identifiable, Hashable {
     static let todas: [ColeccionCine] = [
         ColeccionCine(titulo: "Películas clásicas", consulta: "collection:(feature_films)", icono: "film"),
         ColeccionCine(titulo: "Películas en español", consulta: "collection:(feature_films) AND language:(spa OR Spanish OR español)", icono: "character.bubble"),
+        ColeccionCine(titulo: "Recientes (2000 en adelante)", consulta: "collection:(feature_films OR independent_films OR moviesandfilms) AND year:[2000 TO 2030]", icono: "sparkles.tv"),
         ColeccionCine(titulo: "Series clásicas de TV", consulta: "collection:(classic_tv)", icono: "tv"),
         ColeccionCine(titulo: "Caricaturas clásicas", consulta: "collection:(classic_cartoons)", icono: "teddybear"),
         ColeccionCine(titulo: "Cine negro", consulta: "collection:(film_noir)", icono: "moon"),
@@ -125,6 +126,10 @@ struct CineInicioView: View {
         ("Plex", "Películas y TV en vivo gratis", "https://watch.plex.tv"),
         ("ViX", "Novelas, series y películas en español (versión gratis)", "https://vix.com"),
         ("Canela.TV", "Películas y series gratis en español", "https://www.canela.tv"),
+        ("The Roku Channel", "Películas, series y TV en vivo gratis", "https://therokuchannel.roku.com"),
+        ("YouTube: películas gratis", "Películas oficiales gratis con anuncios", "https://www.youtube.com/feed/storefront"),
+        ("Kanopy", "Cine gratis con credencial de biblioteca", "https://www.kanopy.com"),
+        ("Hoopla", "Películas y series con credencial de biblioteca", "https://www.hoopladigital.com"),
     ]
 
     var body: some View {

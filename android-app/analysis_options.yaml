@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    # chewie y otros paquetes usan package:flutter/material.dart; se usa el mismo para que sean compatibles.
+    deprecated_member_use: ignore
+  exclude:
+    - build/**
+    - android/**

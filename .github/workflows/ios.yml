@@ -3,6 +3,7 @@ name: Compilar IPA (sin firmar)
 on:
   push:
     branches: [main]
+    paths-ignore: ['android-app/**', '.github/workflows/android.yml']
   workflow_dispatch:
 
 permissions:

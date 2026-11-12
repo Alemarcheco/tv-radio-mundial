@@ -1,0 +1,41 @@
+name: Compilar APK (Android)
+
+on:
+  push:
+    branches: [main]
+    paths: ['android-app/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter pub get
+      - run: flutter build apk --release
+      - run: cp build/app/outputs/flutter-apk/app-release.apk TVyRadioMundial.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TVyRadioMundial-apk
+          path: android-app/TVyRadioMundial.apk
+
+      - name: Publicar en Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-v1.0.${{ github.run_number }}
+          name: Android - TV y Radio Mundial v1.0.${{ github.run_number }}
+          files: android-app/TVyRadioMundial.apk
