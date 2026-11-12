@@ -1,0 +1,51 @@
+name: Compilar IPA (sin firmar)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ipa:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+
+      - name: Generar proyecto Xcode
+        run: xcodegen generate
+
+      - name: Compilar (sin firma)
+        run: |
+          xcodebuild -project MundoTVRadio.xcodeproj \
+            -scheme MundoTVRadio \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Empaquetar IPA
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/MundoTVRadio.app Payload/
+          zip -qry MundoTVRadio.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MundoTVRadio-ipa
+          path: MundoTVRadio.ipa
+
+      - name: Publicar en Releases
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: TV y Radio Mundial v1.0.${{ github.run_number }}
+          files: MundoTVRadio.ipa
