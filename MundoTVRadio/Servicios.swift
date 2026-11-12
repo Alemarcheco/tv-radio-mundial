@@ -87,6 +87,33 @@ actor ServicioTV {
     }
 }
 
+// MARK: - Regiones de TV (estados/provincias, listas "subdivisions" de iptv-org)
+
+struct SubdivisionTV: Hashable {
+    let codigo: String   // p. ej. "MX-JAL"
+    let nombre: String
+    let pais: String
+}
+
+actor ServicioRegionesTV {
+    static let shared = ServicioRegionesTV()
+    private var todas: [SubdivisionTV]?
+
+    func subdivisiones(de pais: String) async -> [SubdivisionTV] {
+        if todas == nil {
+            guard let url = URL(string: "https://iptv-org.github.io/api/subdivisions.json"),
+                  let respuesta = try? await URLSession.shared.data(from: url),
+                  let lista = (try? JSONSerialization.jsonObject(with: respuesta.0)) as? [[String: Any]] else { return [] }
+            todas = lista.compactMap { d in
+                guard let c = d["code"] as? String, let n = d["name"] as? String, let p = d["country"] as? String else { return nil }
+                return SubdivisionTV(codigo: c, nombre: n, pais: p.uppercased())
+            }
+        }
+        let p = pais.uppercased() == "GB" ? "UK" : pais.uppercased()
+        return (todas ?? []).filter { $0.pais == p || $0.pais == pais.uppercased() }
+    }
+}
+
 // MARK: - Radio (API pública Radio Browser, radio-browser.info)
 
 struct PaisRadio: Decodable, Hashable {
@@ -157,18 +184,16 @@ actor ServicioRadio {
         return try JSONDecoder().decode([Emisora].self, from: data)
     }
 
-    /// Emisoras de un país que tienen ubicación (latitud/longitud), para el mapa.
-    func emisorasConUbicacion(_ pais: String) async throws -> [Emisora] {
+    /// Todas las emisoras de un país (hasta 3000, las más escuchadas primero), para el mapa por regiones.
+    func emisorasDelPais(_ pais: String) async throws -> [Emisora] {
         let data = try await pedir("/json/stations/search", [
             URLQueryItem(name: "countrycode", value: pais.uppercased()),
-            URLQueryItem(name: "has_geo_info", value: "true"),
             URLQueryItem(name: "hidebroken", value: "true"),
             URLQueryItem(name: "order", value: "clickcount"),
             URLQueryItem(name: "reverse", value: "true"),
-            URLQueryItem(name: "limit", value: "500"),
+            URLQueryItem(name: "limit", value: "3000"),
         ])
         return try JSONDecoder().decode([Emisora].self, from: data)
-            .filter { ($0.geo_lat ?? 0) != 0 || ($0.geo_long ?? 0) != 0 }
     }
 
     func paises() async throws -> [PaisRadio] {

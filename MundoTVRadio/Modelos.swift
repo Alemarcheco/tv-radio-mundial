@@ -27,6 +27,7 @@ struct Emisora: Identifiable, Codable, Hashable {
     let codec: String?
     let bitrate: Int?
     let homepage: String?
+    let state: String?
     let geo_lat: Double?
     let geo_long: Double?
 
